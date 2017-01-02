@@ -16,9 +16,6 @@
 
 $(call inherit-product, device/samsung/trltespr/full_trltespr.mk)
 
-# Enhanced NFC
-$(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
-
 # Inherit common LineageOS phone.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
