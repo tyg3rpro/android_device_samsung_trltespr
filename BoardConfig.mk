@@ -23,7 +23,6 @@ TARGET_KERNEL_VARIANT_CONFIG := apq8084_sec_trlte_spr_defconfig
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_apq8084
 TARGET_LIBINIT_APQ8084_DEFINES_FILE := device/samsung/trltespr/init/init_trlte.cpp
-TARGET_UNIFIED_DEVICE := true
 
 # Radio
 BOARD_RIL_CLASS := ../../../device/samsung/trltespr/ril
