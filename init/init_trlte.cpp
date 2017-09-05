@@ -26,60 +26,55 @@
  */
 
 #include <stdlib.h>
-#include <stdio.h>
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
 #include "log.h"
 #include "util.h"
 
-#include "init_msm.h"
+#include "init_apq8084.h"
 
-void cdma_properties(const char cdma_sub[], const char op_numeric[], const char op_alpha[])
+void cdma_properties(char const *operator_alpha,
+                     char const *operator_numeric,
+                     char const *cdma_sub)
 {
-    property_set("ril.subscription.types", "NV,RUIM");
-    property_set("ro.cdma.home.operator.numeric", op_numeric);
-    property_set("ro.cdma.home.operator.alpha", op_alpha);
+    /* Dynamic CDMA Properties */
+    property_set("ro.cdma.home.operator.alpha", operator_alpha);
+    property_set("ro.cdma.home.operator.numeric", operator_numeric);
     property_set("ro.telephony.default_cdma_sub", cdma_sub);
+
+    /* Static CDMA Properties */
+    property_set("ril.subscription.types", "NV,RUIM");
     property_set("ro.telephony.default_network", "10");
     property_set("telephony.lteOnCdmaDevice", "1");
 }
 
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
+void init_target_properties()
 {
-    char platform[PROP_VALUE_MAX];
-    char bootloader[PROP_VALUE_MAX];
-    char device[PROP_VALUE_MAX];
-    char devicename[PROP_VALUE_MAX];
-    int rc;
-
-    UNUSED(msm_id);
-    UNUSED(msm_ver);
-    UNUSED(board_type);
-
-    rc = property_get("ro.board.platform", platform);
-    if (!rc || !ISMATCH(platform, ANDROID_TARGET))
+    std::string platform = property_get("ro.board.platform");
+    if (platform != ANDROID_TARGET)
         return;
 
-    property_get("ro.bootloader", bootloader);
+    std::string bootloader = property_get("ro.bootloader");
 
-    if (strstr(bootloader, "N910R4")) {
-        /* trlteusc */
-        property_set("ro.build.fingerprint", "samsung/trlteusc/trlteusc:4.4.4/KTU84P/N910R4VPU1ANIE:user/release-keys");
-        property_set("ro.build.description", "trlteusc-user 4.4.4 KTU84P N910R4UVU1ANIH release-keys");
-        property_set("ro.product.model", "SM-N910R4");
-        property_set("ro.product.device", "trlteusc");
-        cdma_properties("0", "311580", "U.S.Cellular");
-    } else {
-        /* trltespr */
+    if (bootloader.find("N910P") == 0) {
         property_set("ro.build.fingerprint", "samsung/trltespr/trltespr:6.0/MRA58K/N910PVPU4COG5:user/release-keys");
         property_set("ro.build.description", "trltespr-user 6.0 MRA58K N910PVPU4COG5 release-keys");
         property_set("ro.product.model", "SM-N910P");
         property_set("ro.product.device", "trltespr");
-        cdma_properties("1", "310120", "Sprint");
+        cdma_properties("Sprint", "310120", "1");
+    } else if (bootloader.find("N910R4") == 0) {
+        property_set("ro.build.fingerprint", "samsung/trlteusc/trlteusc:4.4.4/KTU84P/N910R4VPU1ANIE:user/release-keys");
+        property_set("ro.build.description", "trlteusc-user 4.4.4 KTU84P N910R4UVU1ANIH release-keys");
+        property_set("ro.product.model", "SM-N910R4");
+        property_set("ro.product.device", "trlteusc");
+        cdma_properties("U.S. Cellular", "311580", "0");
+    } else {
+        ERROR("Setting product info FAILED\n");
     }
 
-    property_get("ro.product.device", device);
-    strlcpy(devicename, device, sizeof(devicename));
-    INFO("Found bootloader id %s setting build properties for %s device\n", bootloader, devicename);
+    std::string device = property_get("ro.product.device");
+    INFO("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), device.c_str());
 }
