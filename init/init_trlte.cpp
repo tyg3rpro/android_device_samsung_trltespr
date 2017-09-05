@@ -60,14 +60,14 @@ void init_target_properties()
     std::string bootloader = property_get("ro.bootloader");
 
     if (bootloader.find("N910P") == 0) {
-        property_set("ro.build.fingerprint", "samsung/trltespr/trltespr:6.0/MRA58K/N910PVPU4COG5:user/release-keys");
-        property_set("ro.build.description", "trltespr-user 6.0 MRA58K N910PVPU4COG5 release-keys");
+        property_set("ro.build.fingerprint", "samsung/trltespr/trltespr:6.0.1/MMB29M/N910PVPS4DQG1:user/release-keys");
+        property_set("ro.build.description", "trltespr-user 6.0.1 MMB29M N910PVPS4DQG1 release-keys");
         property_set("ro.product.model", "SM-N910P");
         property_set("ro.product.device", "trltespr");
         cdma_properties("Sprint", "310120", "1");
     } else if (bootloader.find("N910R4") == 0) {
-        property_set("ro.build.fingerprint", "samsung/trlteusc/trlteusc:4.4.4/KTU84P/N910R4VPU1ANIE:user/release-keys");
-        property_set("ro.build.description", "trlteusc-user 4.4.4 KTU84P N910R4UVU1ANIH release-keys");
+        property_set("ro.build.fingerprint", "samsung/trlteusc/trlteusc:6.0.1/MMB29M/N910R4TYS1CQC1:user/release-keys");
+        property_set("ro.build.description", "trlteusc-user 6.0.1 MMB29M N910R4TYS1CQC1 release-keys");
         property_set("ro.product.model", "SM-N910R4");
         property_set("ro.product.device", "trlteusc");
         cdma_properties("U.S. Cellular", "311580", "0");
