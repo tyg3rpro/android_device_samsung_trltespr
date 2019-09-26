@@ -22,5 +22,5 @@ $(call inherit-product, device/samsung/trltespr/device.mk)
 PRODUCT_NAME := full_trltespr
 PRODUCT_DEVICE := trltespr
 PRODUCT_BRAND := samsung
-PRODUCT_MANUFACTURER := samsung
-PRODUCT_MODEL := trltespr
+PRODUCT_MANUFACTURER := Samsung
+PRODUCT_MODEL := Galaxy Note 4

@@ -24,3 +24,8 @@ DEVICE_PACKAGE_OVERLAYS += device/samsung/trltespr/overlay
 
 # common trlte
 $(call inherit-product, device/samsung/trlte-common/trlte.mk)
+
+PRODUCT_COPY_FILES += \
+    device/samsung/trltespr/ubuntu/70-android.rules:system/halium/lib/udev/rules.d/70-android.rules \
+    device/samsung/trltespr/ubuntu/android.conf:system/halium/etc/ubuntu-touch-session.d/android.conf \
+    $(LOCAL_PATH)/ubuntu/timekeeper.conf:system/halium/etc/init/timekeeper.conf
