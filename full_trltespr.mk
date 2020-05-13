@@ -23,4 +23,4 @@ PRODUCT_NAME := full_trltespr
 PRODUCT_DEVICE := trltespr
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := Samsung
-PRODUCT_MODEL := Galaxy Note 4 (SM-N910P,V)
+PRODUCT_MODEL := Galaxy Note 4
